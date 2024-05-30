@@ -1,0 +1,23 @@
+name: Generate and upload artifact
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Generate 100MB file
+      run: dd if=/dev/zero of=file.txt count=102400 bs=1024
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: file
+        path: file.txt
